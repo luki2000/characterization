@@ -9,7 +9,7 @@ const feature = loadFeature(
 )
 
 defineFeature(feature, (test) => {
-    beforeEach(async () => {
+    afterEach(async () => {
         await resetDatabase();
     });
     test('Sucessfully create a class room', ({ given, when, then }) => {
