@@ -1,6 +1,7 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import path from 'path';
-import { app } from "../../index";
+import request from 'supertest';
+import { app } from "../../src/index";
 import { resetDatabase } from "../fixtures/reset";
 
 const feature = loadFeature(
