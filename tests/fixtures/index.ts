@@ -1,7 +1,9 @@
-import { StudentBuilder } from "../builders/studentBuilder";
-import { AssignmentBuilder } from "../builders/assignmentBuilder";
-import { ClassroomBuilder } from "../builders/classRoomBuilder";
-import { EnrolledStudentBuilder } from "../builders/enrolled-student.builder";
+import AssignStudentBuilder from "../builders/assign-student.builder";
+import AssignmentBuilder from "../builders/assignment.builder";
+import ClassRoomBuilder from "../builders/class-room.builder";
+import StudentEnrollementBuilder from "../builders/enrolled-student.builder";
+import StudentBuilder from "../builders/student.builder";
+
 
 
 function aStudent() {
@@ -9,7 +11,7 @@ function aStudent() {
 }
 
 function aClassRoom () {
-  return new ClassroomBuilder()
+  return new ClassRoomBuilder()
 }
 
 function anAssignment () {
@@ -17,12 +19,17 @@ function anAssignment () {
 }
 
 function anEnrolledStudent () {
-  return new EnrolledStudentBuilder();
+  return new StudentEnrollementBuilder();
+}
+
+function anAssignStudent() {
+  return new AssignStudentBuilder()
 }
 
 export {
   aStudent,
   aClassRoom,
   anAssignment,
+  anAssignStudent,
   anEnrolledStudent,
 };

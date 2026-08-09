@@ -1,10 +1,10 @@
-import { Prisma } from '@prisma/client';
 import { Class } from '@prisma/client';
+import { prisma } from '../../src/database';
 
 class ClassRoomBuilder {
-    private classRoom;
+    private classRoom: Partial<Class>;
     constructor() {
-        this.class: Partial<Class> = {};
+        this.classRoom = {};
     }
 
     withName(name: string) {
@@ -13,9 +13,15 @@ class ClassRoomBuilder {
     }
 
     async build() {
-        const classRoom = await prisma.class.create({
-            data: {
-                name: this.classRoom.name,
+        const classRoom = await prisma.class.upsert({
+            where: {
+                name: this.classRoom.name as string,
+            },
+            create: {
+                name: this.classRoom.name as string,
+            },
+            update: {
+                name: this.classRoom.name as string,
             },
         });
         return classRoom;

@@ -1,9 +1,10 @@
+import { prisma } from "../../src/database";
 import ClassRoomBuilder from "./class-room.builder";
 import StudentBuilder from "./student.builder";
 
 class StudentEnrollementBuilder {
-    private classRoomBuilder: ClassRoomBuilder;
-    private studentBuilder: StudentBuilder;
+    private classRoomBuilder?: ClassRoomBuilder;
+    private studentBuilder?: StudentBuilder;
 
    fromClassRoom(classRoomBuilder: ClassRoomBuilder) {
         this.classRoomBuilder = classRoomBuilder;

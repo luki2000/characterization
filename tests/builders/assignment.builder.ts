@@ -1,26 +1,27 @@
+import { prisma } from "../../src/database";
 import ClassRoomBuilder from "./class-room.builder";
 
 class AssignmentBuilder {
-    private classRoomBuilder: ClassRoomBuilder;
+    private classRoomBuilder?: ClassRoomBuilder;
 
     fromClassRoom(classRoomBuilder: ClassRoomBuilder) {
-        this.classRoomBuilder = classRoomBuilder();
+        this.classRoomBuilder = classRoomBuilder;
         return this;
     }
 
    async build() {
-      if(!this.classRoomBuilder) throw new Error('Class does not exist!');
-      
-      const classroom = this.classRoomBuilder; 
+      if (!this.classRoomBuilder) throw new Error('Class does not exist!');
 
-       const assignment = await prisma.assignment.create({
-            data: {
-              classId: classroom.id,
-              title: classroom.name,
-            },
-          });
+      const classroom = await this.classRoomBuilder.build();
 
-          return assignment;
+      const assignment = await prisma.assignment.create({
+        data: {
+          classId: classroom.id,
+          title: classroom.name,
+        },
+      });
+
+      return assignment;
     }
 }
 
