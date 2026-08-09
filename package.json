@@ -4,7 +4,7 @@
   "description": "A basic typescript app starter for 2023.",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf ./build && tsc",
+    "build": "rimraf ./build && tsc -p tsconfig.build.json",
     "generate": "prisma generate",
     "migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",

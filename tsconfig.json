@@ -4,14 +4,13 @@
     "module": "commonjs",
     "lib": ["es6"],
     "allowJs": true,
-    "outDir": "build",
-    "rootDir": "src",
     "strict": true,
     "noEmitOnError": true,
     "esModuleInterop": true,
     "types": ["node", "jest"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noEmit": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tests/**/*"],
   "exclude": ["src/**/*.spec.ts"]
 }
