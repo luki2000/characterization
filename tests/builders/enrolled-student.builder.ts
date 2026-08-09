@@ -12,6 +12,7 @@ class StudentEnrollementBuilder {
 
    and(studentBuilder: StudentBuilder) {
         this.studentBuilder = studentBuilder;
+        return this;
    }
 
    async build() {
