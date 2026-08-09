@@ -53,4 +53,48 @@ defineFeature(feature, (test) => {
             expect(response.body.data.assignmentId).toBe(requestBody.assignmentId);
         });
     });
+
+    test('Fail to assign a student the same assignment more than once', ({ given, and, when, then }) => {
+        const classroomBuilder = aClassRoom().withName("Chemistry");
+        const studentBuilder = aStudent().withName('Snaders').withRandomEmail();
+
+        given('there is an existing student enrolled to a class', async () => {
+            enrolledStudent = await anEnrolledStudent()
+                .fromClassRoom(classroomBuilder)
+                .and(studentBuilder)
+                .build();
+
+        });
+
+        and('an assignment exists for the class', async () => {
+            assignment = await anAssignment()
+                .fromClassRoom(classroomBuilder)
+                .build();
+
+        });
+
+        and('he is already assigned the assignment', async () => {
+            requestBody = {
+                studentId: enrolledStudent.student.id,
+                assignmentId: assignment.id,
+            };
+
+            response = await request(app)
+                .post('/student-assignments')
+                .send(requestBody);
+
+        });
+
+        when('I assign the student the assignment', async () => {
+            response = await request(app)
+                .post('/student-assignments')
+                .send(requestBody);
+        });
+
+        then('the student should not be assigned to the assignment', () => {
+            expect(response.status).toBe(409);
+            expect(response.body.error).toBe("AlreadyAssignedAssignmentToStudent");
+        });
+    });
+
 });
