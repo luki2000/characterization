@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { Class } from '@prisma/client';
 
-class ClassBuilder {
+class ClassRoomBuilder {
     private classRoom;
     constructor() {
         this.class: Partial<Class> = {};
@@ -21,3 +21,5 @@ class ClassBuilder {
         return classRoom;
     }
 }
+
+export default ClassRoomBuilder;

@@ -3,10 +3,7 @@ import path from 'path';
 import request from 'supertest';
 import { app } from "../../src/index";
 import { resetDatabase } from "../fixtures/reset";
-
-class enrolledStudent {
-
-}
+import StudentBuilder from '../builders/student.builder';
 
 class AssignmentBuilder {
 
@@ -17,16 +14,19 @@ const feature = loadFeature(
 )
 
 defineFeature(feature, (test) => {
+
+    let student;
+    let classRoom;
+
     afterEach(async () => {
         await resetDatabase();
     });
     test('Assign a student to an assignment', ({ given, and, when, then }) => {
-        given('there is an existing student enrolled to a class', () => {
-            const enrolledStudent = 
+        given('there is an existing student enrolled to a class', async () => {
+            student = await new StudentBuilder().withName('Jonathan').withRandomEmail().build();
         });
 
-        and('an assignment exists for the class', () => {
-
+        and('an assignment exists for the class', async () => {
         });
 
         when('I assign the student the assignment', () => {

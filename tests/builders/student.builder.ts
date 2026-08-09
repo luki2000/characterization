@@ -28,3 +28,5 @@ class StudentBuilder {
         return student;
     }
 }
+
+export default StudentBuilder;
