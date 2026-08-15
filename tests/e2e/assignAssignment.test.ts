@@ -11,7 +11,7 @@ const feature = loadFeature(
 
 defineFeature(feature, (test) => {
     let assignment: any;
-    let enrolledStudent: any;
+    let enrollmentResult: any;
     let requestBody: any = {};
     let response: any = {};
 
@@ -20,25 +20,23 @@ defineFeature(feature, (test) => {
     });
 
     test('Assign a student to an assignment', ({ given, and, when, then }) => {
-        const classroomBuilder = aClassRoom().withName("Biology");
-        const studentBuilder = aStudent().withName('amy').withRandomEmail();
 
         given('there is an existing student enrolled to a class', async () => {
-            enrolledStudent = await anEnrolledStudent()
-                .fromClassRoom(classroomBuilder)
-                .and(studentBuilder)
+            enrollmentResult = await anEnrolledStudent()
+                .fromClassRoom(aClassRoom().withName("Biology"))
+                .and(aStudent().withName('amy').withRandomEmail())
                 .build();
         });
 
         and('an assignment exists for the class', async () => {
             assignment = await anAssignment()
-                .fromClassRoom(classroomBuilder)
+                .fromClassRoom(aClassRoom().withName("Biology"))
                 .build();
         });
 
         when('I assign the student the assignment', async () => {
             requestBody = {
-                studentId: enrolledStudent.student.id,
+                studentId: enrollmentResult.student.id,
                 assignmentId: assignment.id,
             };
 
@@ -59,7 +57,7 @@ defineFeature(feature, (test) => {
         const studentBuilder = aStudent().withName('Snaders').withRandomEmail();
 
         given('there is an existing student enrolled to a class', async () => {
-            enrolledStudent = await anEnrolledStudent()
+            enrollmentResult = await anEnrolledStudent()
                 .fromClassRoom(classroomBuilder)
                 .and(studentBuilder)
                 .build();
@@ -75,7 +73,7 @@ defineFeature(feature, (test) => {
 
         and('he is already assigned the assignment', async () => {
             requestBody = {
-                studentId: enrolledStudent.student.id,
+                studentId: enrollmentResult.student.id,
                 assignmentId: assignment.id,
             };
 
