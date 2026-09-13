@@ -1,4 +1,4 @@
-Feature: Assign an assignment to a students
+Feature: Assign an assignment to a student
 
     As a teacher
     I want to assign a student an assignment
