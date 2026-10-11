@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { prisma } from "./database";
 import cors from "cors";
-// init commit 
+// init commit 1
 const app = express();
 app.use(express.json());
 app.use(cors());
