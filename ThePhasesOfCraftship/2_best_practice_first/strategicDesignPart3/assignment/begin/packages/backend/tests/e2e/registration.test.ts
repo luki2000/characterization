@@ -5,25 +5,36 @@ import * as path from "path";
 //import { resetDatabase } from "../fixtures/reset";
 
 const feature = loadFeature(
-  path.join(__dirname, "../../../shared/features/registration.feature")
+  path.join(__dirname, "../../../shared/tests/features/registration.feature")
 );
 
 defineFeature(feature, (test) => {
   test('Successful registration with marketing emails accepted', ({ given, when, then, and }) => {
+      let createUserResponse: any = {};
+      let addEmailToListResponse: any = {};
+      let user = {};
     given('I am a new user', () => {
+
+      user = new UserBuilder().withRandomDetails();
 
     });
 
     when('I register with valid account details accepting marketing emails', () => {
-
+      
     });
 
     then('I should be granted access to my account', () => {
-
+      const { data } = createUserResponse.body
+      expect(createUserResponse.status).toBe(201);
+      expect(data!.id).toBeDefined();
+      expect(data!.email).toEqual(user.email);
+      expect(data!.firstName).toEqual(user.firstName);
+      expect(data!.lastName).toEqual(user.lastName);
+      expect(data!.username).toEqual(user.username);
     });
 
     and('I should expect to receive marketing emails', () => {
-
+      expect(addEmailToListResponse.status).toBe(201);
     });
   });
 
