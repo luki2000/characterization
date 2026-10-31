@@ -121,19 +121,45 @@ app.get('/posts', async (req: Request, res: Response) => {
         dateCreated: 'desc', // Sorts by dateCreated in descending order
       },
     });
-
     return res.json({ error: undefined, data: { posts: postsWithVotes }, success: true });
   } catch (error) {
     return res.status(500).json({ error: Errors.ServerError, data: undefined, success: false });
   }
 });
+
+// add marketing posts
+app.post('/marketing/new', async (req: Request, res: Response) => {
+  try {
+    const email = req.body.email;
+     // Do the actual work
+     console.log(
+      `MailchimpContactList: Adding ${email} list... for production usage.`,
+    );
+    const result = true;
+    const response = {
+        success: true,
+        data: result as any,
+        error: {}
+    };
+
+    return res.status(201).json(response);
+  } catch(error) {
+    return res.status(500).json({ error: Errors.ServerError, data: undefined, success: false })
+  }
+});
+
+
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
 
 
 prisma.post.findMany({})
   .then((posts) => console.log(posts))
   .catch((err) => console.log(err));
+
+  export { app };

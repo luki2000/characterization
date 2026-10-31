@@ -1,7 +1,10 @@
+/// <reference types="jest" />
 import { defineFeature, loadFeature } from "jest-cucumber";
-//import request from "supertest";
-//import { app } from "../../index";
+import request from "supertest";
+import { app } from "../../src/index";
 import * as path from "path";
+import { CreateUserInput } from "../../../shared/src/api/create-users.input";
+import CreateUserInputBuilder from "../builder/create-user-Input.builder";
 //import { resetDatabase } from "../fixtures/reset";
 
 const feature = loadFeature(
@@ -12,15 +15,18 @@ defineFeature(feature, (test) => {
   test('Successful registration with marketing emails accepted', ({ given, when, then, and }) => {
       let createUserResponse: any = {};
       let addEmailToListResponse: any = {};
-      let user = {};
+      let user: Partial<CreateUserInput>;
+
     given('I am a new user', () => {
-
-      user = new UserBuilder().withRandomDetails();
-
+      user = new CreateUserInputBuilder().withRandomDetails().build();
     });
 
-    when('I register with valid account details accepting marketing emails', () => {
-      
+    when('I register with valid account details accepting marketing emails', async () => {
+      createUserResponse = await request(app).post('/users/new').send(user);
+
+      addEmailToListResponse = await request(app)
+        .post("/marketing/new")
+        .send({ email: user.email });
     });
 
     then('I should be granted access to my account', () => {
@@ -34,7 +40,10 @@ defineFeature(feature, (test) => {
     });
 
     and('I should expect to receive marketing emails', () => {
+      const { success } = addEmailToListResponse.body;
       expect(addEmailToListResponse.status).toBe(201);
+      expect(success).toBeTruthy();
+
     });
   });
 
