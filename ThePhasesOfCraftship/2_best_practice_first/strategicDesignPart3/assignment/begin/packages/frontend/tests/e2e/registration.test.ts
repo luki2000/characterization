@@ -5,7 +5,7 @@ import * as path from "path";
 //import { resetDatabase } from "../fixtures/reset";
 
 const feature = loadFeature(
-  path.join(__dirname, "../../../shared/features/registration.feature")
+  path.join(__dirname, "../../../shared/tests/features/registration.feature")
 );
 
 defineFeature(feature, (test) => {

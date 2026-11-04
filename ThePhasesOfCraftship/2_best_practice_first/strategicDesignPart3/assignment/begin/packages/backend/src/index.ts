@@ -127,7 +127,7 @@ app.get('/posts', async (req: Request, res: Response) => {
   }
 });
 
-// add marketing posts
+// add user to marketing
 app.post('/marketing/new', async (req: Request, res: Response) => {
   try {
     const email = req.body.email;
