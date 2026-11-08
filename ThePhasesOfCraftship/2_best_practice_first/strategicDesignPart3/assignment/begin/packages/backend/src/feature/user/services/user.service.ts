@@ -1,5 +1,5 @@
 import UserRepository from "../persistance/user.database";
-import { EmailAlreadyInUse, UserNameAlreadyInUse } from "../shared/errors";
+import { EmailAlreadyInUse, UserNameAlreadyInUse } from "../../../shared/errors";
 import CreateUserDto from "../view/createUser.dto";
 
 class UserService {

@@ -1,5 +1,5 @@
 import { PrismaClient, User } from "@prisma/client";
-import { generateRandomPassword } from "../../shared/utilities/password-generator";
+import { generateRandomPassword } from "../../../../shared/utilities/password-generator";
 import CreateUserDto from "../view/createUser.dto";
 
 interface UserPersistence {

@@ -1,8 +1,8 @@
-import { UserController } from './controllers/user.controller';
+import { UserController } from './feature/user/controllers/user.controller';
 import { prisma } from './database';
-import UserRepository from './persistance/user.database';
+import UserRepository from './feature/user/persistance/user.database';
 import Server from './server';
-import UserService from './services/user.service';
+import UserService from './feature/user/services/user.service';
 import { ErrorHandler } from './shared/errors';
 
 // const errorExceptionHandler = new ErrorExceptionHandler();

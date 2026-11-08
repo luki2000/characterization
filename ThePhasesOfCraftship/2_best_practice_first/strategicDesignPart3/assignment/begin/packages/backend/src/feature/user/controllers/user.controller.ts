@@ -1,5 +1,5 @@
 import express from "express";
-import { ErrorHandler } from "../shared/errors";
+import { ErrorHandler } from "../../../shared/errors";
 import CreateUserDto from "../view/createUser.dto";
 import UserService from "../services/user.service";
 

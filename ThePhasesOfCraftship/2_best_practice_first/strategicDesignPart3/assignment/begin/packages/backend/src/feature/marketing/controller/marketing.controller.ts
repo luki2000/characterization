@@ -1,7 +1,7 @@
 import express from "express";
 import { AddEmailToListResponse } from '@dddforum/shared/src/api/marketing';
-import { MarketingService } from "../services/marketing.service";
-import { ErrorHandler } from "../shared/errors";
+import { MarketingService } from "./marketing.service";
+import { ErrorHandler } from "../../../shared/errors";
 
 export class MarketingController {
     private router: express.Router;

@@ -1,5 +1,5 @@
 import express, { Express } from 'express';
-import { UserController } from './controllers/user.controller';
+import { UserController } from './feature/user/controllers/user.controller';
 
 const cors = require('cors');
 
