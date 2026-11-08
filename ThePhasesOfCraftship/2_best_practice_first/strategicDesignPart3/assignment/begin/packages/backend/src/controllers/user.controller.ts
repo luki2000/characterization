@@ -1,5 +1,7 @@
 import express from "express";
 import { ErrorHandler } from "../shared/errors";
+import CreateUserDto from "../view/createUser.dto";
+import UserService from "../services/user.service";
 
 
 export class UserController {
@@ -33,34 +35,13 @@ export class UserController {
          next: express.NextFunction
      ) {
             try {
-                const keyIsMissing = isMissingKeys(req.body, 
-                  ['email', 'firstName', 'lastName', 'username']
-                );
-                // replace by Dto
-                if (keyIsMissing) {
-                  return res.status(400).json({ error: Errors.ValidationError, data: undefined, success: false })
-                }
+
+               const dto = CreateUserDto.fromRequest(req.body);
             
-                const userData = req.body;
-                
-                // use userService
-                const existingUserByEmail = await prisma.user.findFirst({ where: { email: req.body.email }});
-                if (existingUserByEmail) {
-                  return res.status(409).json({ error: Errors.EmailAlreadyInUse, data: undefined, success: false })
-                }
-            
-                // use userService
-                const existingUserByUsername = await prisma.user.findFirst({ where: { username: req.body.username as string }});
-                if (existingUserByUsername) {
-                  return res.status(409).json({ error: Errors.UsernameAlreadyTaken, data: undefined, success: false })
-                }
-            
-                // use userServices
-                const { user, member } = await prisma.$transaction(async (tx) => {
-                  const user = await prisma.user.create({ data: { ...userData, password: generateRandomPassword(10) } });
-                  const member = await prisma.member.create({ data: { userId: user.id }})
-                  return { user, member }
-                })
+              const userData = dto;
+
+              const response = await this.userService.createUser(userData);
+
  
              return res.status(201).json(response);
          } catch(error) {

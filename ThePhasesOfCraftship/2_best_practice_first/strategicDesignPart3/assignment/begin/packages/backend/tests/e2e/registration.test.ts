@@ -1,17 +1,22 @@
 /// <reference types="jest" />
 import { defineFeature, loadFeature } from "jest-cucumber";
 import request from "supertest";
-import { app } from "../../src/index";
+import server from "../../src/bootstrap";
+
+const app = server.getApp();
 import * as path from "path";
 import { CreateUserInput } from "../../../shared/src/api/create-users.input";
 import CreateUserInputBuilder from "../builder/create-user-Input.builder";
-//import { resetDatabase } from "../fixtures/reset";
+import { resetDatabase } from "../fixtures/reset";
 
 const feature = loadFeature(
   path.join(__dirname, "../../../shared/tests/features/registration.feature")
 );
 
 defineFeature(feature, (test) => {
+  afterEach(async() => {
+    await resetDatabase();
+  });
   test('Successful registration with marketing emails accepted', ({ given, when, then, and }) => {
       let createUserResponse: any = {};
       let addEmailToListResponse: any = {};
