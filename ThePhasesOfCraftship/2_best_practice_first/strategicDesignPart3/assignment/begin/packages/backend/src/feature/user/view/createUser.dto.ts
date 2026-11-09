@@ -1,6 +1,6 @@
-import { isMissingKeys } from '../../shared/utilities/input-validation';
-import { User } from '../../../shared/src/models/user';
-import { InvalidRequestBodyException } from '../shared/errors';
+import { isMissingKeys } from '../../../../shared/utilities/input-validation';
+import { User } from '../../../../../shared/src/models/user';
+import { InvalidRequestBodyException } from '../../../shared/errors';
 
 class CreateUserDto implements User {
     constructor(

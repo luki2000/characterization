@@ -20,7 +20,7 @@ class Server {
         }
 
         private setupRoutes() {
-            this.app.use('/students', this.userController.getRouter());
+            this.app.use('/users', this.userController.getRouter());
         }
 
         getApp() {

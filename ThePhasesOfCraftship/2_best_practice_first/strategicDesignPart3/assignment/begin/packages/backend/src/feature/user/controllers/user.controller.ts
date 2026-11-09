@@ -1,4 +1,5 @@
 import express from "express";
+import { parseUserForResponse } from "../../../../shared/utilities/parser";
 import { ErrorHandler } from "../../../shared/errors";
 import CreateUserDto from "../view/createUser.dto";
 import UserService from "../services/user.service";
@@ -20,8 +21,8 @@ export class UserController {
     }
 
     private setupRoutes() {
-        this.router.post('/users/new', this.createUser.bind(this));
-        this.router.get('/users', this.getUserByEmail.bind(this));
+        this.router.post('/new', this.createUser.bind(this));
+        this.router.get('/', this.getUserByEmail.bind(this));
 
     }
 
@@ -34,16 +35,14 @@ export class UserController {
          res: express.Response,
          next: express.NextFunction
      ) {
-            try {
-
-               const dto = CreateUserDto.fromRequest(req.body);
-            
-              const userData = dto;
-
-              const response = await this.userService.createUser(userData);
-
- 
-             return res.status(201).json(response);
+        try {
+              const dto = CreateUserDto.fromRequest(req.body);
+              const { user } = await this.userService.createUser(dto);
+              return res.status(201).json({
+                success: true,
+                data: parseUserForResponse(user),
+                error: {},
+              });
          } catch(error) {
              next(error);
          }
