@@ -3,6 +3,7 @@ import { parseUserForResponse } from "../../../../shared/utilities/parser";
 import { ErrorHandler } from "../../../shared/errors";
 import CreateUserDto from "../view/createUser.dto";
 import UserService from "../services/user.service";
+import GetUserbyEmailDto from "../view/getUserByEmail.dto";
 
 
 export class UserController {
@@ -53,6 +54,18 @@ export class UserController {
         res: express.Response,
         next: express.NextFunction
     ) {
+
+        try {
+            const dto = GetUserbyEmailDto.fromRequest(req.query);
+            const user  = await this.userService.getUserByEmail(dto);
+            return res.status(201).json({
+              success: true,
+              data: parseUserForResponse(user),
+              error: {},
+            });
+       } catch(error) {
+           next(error);
+       }
 
     }
 

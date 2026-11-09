@@ -1,5 +1,6 @@
 import express, { Express } from 'express';
 import { UserController } from './feature/user/controllers/user.controller';
+import { MarketingController } from './feature/marketing/controller/marketing.controller';
 
 const cors = require('cors');
 
@@ -8,7 +9,8 @@ class Server {
         private app: Express;
     
         constructor(
-            private readonly userController: UserController) {
+            private readonly userController: UserController,
+            private readonly marketingController: MarketingController) {
                 this.app = express();
                 this.setupMiddleware();
                 this.setupRoutes();
@@ -21,6 +23,7 @@ class Server {
 
         private setupRoutes() {
             this.app.use('/users', this.userController.getRouter());
+            this.app.use('/marketing', this.marketingController.getRouter());
         }
 
         getApp() {

@@ -1,6 +1,6 @@
 import express from "express";
 import { AddEmailToListResponse } from '@dddforum/shared/src/api/marketing';
-import { MarketingService } from "./marketing.service";
+import { MarketingService } from "../service/marketing.service";
 import { ErrorHandler } from "../../../shared/errors";
 
 export class MarketingController {

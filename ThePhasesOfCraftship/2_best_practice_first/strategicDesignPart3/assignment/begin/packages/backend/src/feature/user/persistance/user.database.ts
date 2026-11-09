@@ -19,6 +19,10 @@ class UserRepository implements UserPersistence{
         return await this.prisma.user.findFirst({ where: { username: username }});
     }
 
+    async getUserByEmail(email: string) {
+        return await this.prisma.user.findUnique({ where: { email } });
+    }
+
     async addUser(userData: CreateUserDto) {
         const { user, member } = await this.prisma.$transaction(async (tx) => {
             const user = await this.prisma.user.create({ data: { ...userData, password: generateRandomPassword(10) } });

@@ -27,6 +27,12 @@ export class UserNameAlreadyInUse extends Error {
     }
 }
 
+export class UserNotFound extends Error {
+    constructor() {
+        super(`User not found`)
+    }
+}
+
 export function ErrorHandler(error: Error, req: Request, res: Response, next: NextFunction): Response | undefined {
   
     if(error instanceof InvalidRequestBodyException) {
@@ -35,6 +41,14 @@ export function ErrorHandler(error: Error, req: Request, res: Response, next: Ne
             data: undefined,
             success: false,
             message: error.message,
+        });
+    }
+
+    if(error instanceof UserNotFound) {
+        return res.status(404).json({
+             error: Errors.UserNotFound,
+             data: undefined, 
+             success: false 
         });
     }
 

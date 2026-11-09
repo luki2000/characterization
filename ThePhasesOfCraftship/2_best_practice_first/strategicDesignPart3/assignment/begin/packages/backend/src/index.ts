@@ -3,26 +3,7 @@ import server from './bootstrap';
 const port = Number(process.env.PORT || 3000);
 
 server.start(port);
-
-
-// Get a user by email
-/*app.get('/users', async (req: Request, res: Response) => {
-  try {
-    const email = req.query.email as string;
-    if (email === undefined) {
-      return res.status(400).json({ error: Errors.ValidationError, data: undefined, success: false })
-    }
-    
-    const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) {
-      return res.status(404).json({ error: Errors.UserNotFound, data: undefined, success: false })
-    }
-
-    return res.status(200).json({ error: undefined, data: parseUserForResponse(user), succes: true });
-  } catch (error) {
-    return res.status(500).json({ error: Errors.ServerError, data: undefined, success: false });
-  }
-});
+/*
 
 // Get posts
 app.get('/posts', async (req: Request, res: Response) => {
