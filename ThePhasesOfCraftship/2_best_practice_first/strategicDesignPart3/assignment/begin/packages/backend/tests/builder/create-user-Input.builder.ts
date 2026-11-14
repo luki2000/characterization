@@ -3,16 +3,9 @@ import { TextUtil } from "../../../shared/src/utils/textUtils";
 
 
 class CreateUserInputBuilder  {
-    private props: Partial<CreateUserInput>;
+    private props: Partial<CreateUserInput> = {};
 
-    constructor() {
-        this.props = {
-            email: '',
-            firstName: '',
-            lastName: '',
-            username: '',
-        }
-    }
+    constructor() {}
 
     public withRandomDetails() {
         this.withEmail(TextUtil.createRandomEmail());
